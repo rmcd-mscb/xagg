@@ -449,14 +449,14 @@ def aggregate(ds,wm):
                     # Check first if any nans are "complete" (meaning that a pixel 
                     # either has values for each step, or nans for each step - if
                     # there are random nans within a pixel, throw a warning)
-                    if not xr.Dataset.equals(np.isnan(ds[var].isel(loc=wm.agg.iloc[poly_idx,:].pix_idxs)).any(other_dims),
-                                             np.isnan(ds[var].isel(loc=wm.agg.iloc[poly_idx,:].pix_idxs)).all(other_dims)):
-                        warnings.warn('One or more of the pixels in variable '+var+' have nans in them in the dimensions '+
-                                      ', '.join([k for k in ds[var].dims if k != 'loc'])+
-                                      '. The code can currently only deal with pixels for which the '+
-                                      '*entire* pixel has nan values in all dimensions, however there is currently no '+
-                                      ' support for data in which pixels have only some nan values. The aggregation '+
-                                      'calculation is likely incorrect.')
+                    # if not xr.Dataset.equals(np.isnan(ds[var].isel(loc=wm.agg.iloc[poly_idx,:].pix_idxs)).any(other_dims),
+                    #                          np.isnan(ds[var].isel(loc=wm.agg.iloc[poly_idx,:].pix_idxs)).all(other_dims)):
+                        # warnings.warn('One or more of the pixels in variable '+var+' have nans in them in the dimensions '+
+                        #               ', '.join([k for k in ds[var].dims if k != 'loc'])+
+                        #               '. The code can currently only deal with pixels for which the '+
+                        #               '*entire* pixel has nan values in all dimensions, however there is currently no '+
+                        #               ' support for data in which pixels have only some nan values. The aggregation '+
+                        #               'calculation is likely incorrect.')
 
                     if not np.isnan(ds[var].isel(loc=wm.agg.iloc[poly_idx,:].pix_idxs)).all(): 
                         # Get relative areas for the pixels overlapping with this Polygon

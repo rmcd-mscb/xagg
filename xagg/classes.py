@@ -52,20 +52,27 @@ class aggregated(object):
         self.weights = weights
     
     # Conversion functions
-    def to_dataset(self,loc_dim='pix_idx'):
+    def to_dataset(self,loc_dim='poly_idx'):
         """ Convert to xarray dataset.
         """
         ds_out = prep_for_nc(self,loc_dim=loc_dim)
         return ds_out
 
-    def to_dataframe(self):
+    def to_geodataframe(self):
+        """ Convert to geopandas geodataframe.
+        """
+        df_out = prep_for_csv(self,add_geom=True)
+        return df_out
+
+    def to_dataframe(self,loc_dim='poly_idx'):
         """ Convert to pandas dataframe.
         """
-        df_out = prep_for_csv(self)
-        return df_out  
+        df_out = prep_for_nc(self,loc_dim=loc_dim)
+        df_out = df_out.to_dataframe()
+        return df_out
 
     # Export functions
-    def to_netcdf(self,fn,loc_dim='pix_idx'):
+    def to_netcdf(self,fn,loc_dim='poly_idx'):
         """ Save as netcdf
         """
         output_data(self,
